@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,11 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField, Foldout("Movement Variables")] private float moveSpeed = 2f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
+	[SerializeField, Foldout("Movement Variables")] private float defaultGravityScale = 5f;
+	[SerializeField, Foldout("Movement Variables")] private float fallGravityScale = 9f;
 	[Space]
 	[SerializeField, Foldout("Movement Variables")] private LayerMask groundedMask = default;
+	[SerializeField, Foldout("Movement Variables")] private float groundDetectionDistance = 0.35f;
 
 	[SerializeField, Foldout("References")] private SpriteRenderer spriteRenderer = default;
 	[SerializeField, Foldout("References")] private Transform groundedCheckTransform = default;
@@ -24,6 +28,8 @@ public class PlayerController : MonoBehaviour
 		rb2d = GetComponent<Rigidbody2D>();
 		animator = GetComponentInChildren<Animator>();
 		PlayerControls = new Controlls_Player1();
+
+		rb2d.gravityScale = defaultGravityScale;
 	}
 	private void OnEnable()
 	{
@@ -40,6 +46,7 @@ public class PlayerController : MonoBehaviour
 	}
 	private void Update()
 	{
+		EvaluateJump();
 		//SetAnimatorStates();
 	}
 	#endregion
@@ -55,7 +62,7 @@ public class PlayerController : MonoBehaviour
 	private void Jump(InputAction.CallbackContext context)
 	{
 		if (!IsGrounded()) return;
-		rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+		rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 	}
 	#endregion
 
@@ -73,8 +80,9 @@ public class PlayerController : MonoBehaviour
 	}
 	private bool IsGrounded()
 	{
-		if (Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, 0.5f, groundedMask))
+		if (Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, groundDetectionDistance, groundedMask))
 		{
+			rb2d.gravityScale = defaultGravityScale;
 			return true;
 		}
 		{
@@ -91,6 +99,14 @@ public class PlayerController : MonoBehaviour
 		if (rb2d.velocity.y != 0) return true;
 		else return false;
 	}
+	private void EvaluateJump()
+	{
+		if (IsGrounded()) return;
+		if (rb2d.velocity.y < 0)
+		{
+			rb2d.gravityScale = fallGravityScale;
+		}
+	}
 	private void SetAnimatorStates()
 	{
 		animator.SetBool("Moving", IsMoving());
@@ -102,6 +118,6 @@ public class PlayerController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawRay(groundedCheckTransform.position, Vector2.down * 0.5f);
+		Gizmos.DrawRay(groundedCheckTransform.position, Vector2.down * groundDetectionDistance);
 	}
 }
