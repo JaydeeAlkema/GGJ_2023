@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
 	[Space]
 	[SerializeField, Foldout("Movement Variables")] private LayerMask groundedMask = default;
-	[SerializeField, Foldout("Movement Variables")] private float groundedRadius = 0.25f;
 
 	[SerializeField, Foldout("References")] private SpriteRenderer spriteRenderer = default;
 	[SerializeField, Foldout("References")] private Transform groundedCheckTransform = default;
@@ -32,10 +31,12 @@ public class PlayerController : MonoBehaviour
 		PlayerControls.PlayerActions.GroundedMovement.Enable();
 
 		PlayerControls.PlayerActions.Jump.performed += Jump;
+		PlayerControls.PlayerActions.Jump.Enable();
 	}
 	private void OnDisable()
 	{
 		PlayerControls.PlayerActions.GroundedMovement.Disable();
+		PlayerControls.PlayerActions.Jump.Disable();
 	}
 	private void Update()
 	{
@@ -72,14 +73,12 @@ public class PlayerController : MonoBehaviour
 	}
 	private bool IsGrounded()
 	{
-		Collider[] collidersUnderCharacter = Physics.OverlapSphere(groundedCheckTransform.position, groundedRadius, groundedMask);
-
-		switch (collidersUnderCharacter.Length)
+		if (Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, 0.5f, groundedMask))
 		{
-			case 0:
-				return false;
-			default:
-				return true;
+			return true;
+		}
+		{
+			return false;
 		}
 	}
 	private bool IsMoving()
@@ -103,6 +102,6 @@ public class PlayerController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(groundedCheckTransform.position, groundedRadius);
+		Gizmos.DrawRay(groundedCheckTransform.position, Vector2.down * 0.5f);
 	}
 }
