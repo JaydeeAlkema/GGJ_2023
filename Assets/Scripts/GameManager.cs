@@ -6,42 +6,50 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-	private static GameManager instance;
+    public static GameManager instance;
 
-	[SerializeField] private Transform player1SpawnPoint = default;
-	[SerializeField] private Transform player2SpawnPoint = default;
+    [SerializeField] private TreeManager treeManager;
 
-	[SerializeField] private System.Action<PlayerInput> playerJoinedGame;
-	[SerializeField] private System.Action<PlayerInput> playerLeftGame;
+    [SerializeField] private Transform player1SpawnPoint = default;
+    [SerializeField] private Transform player2SpawnPoint = default;
 
-	private List<PlayerInput> players = new List<PlayerInput>();
+    [SerializeField] private System.Action<PlayerInput> playerJoinedGame;
+    [SerializeField] private System.Action<PlayerInput> playerLeftGame;
 
-	private void Awake()
-	{
-		if (!instance || instance != this)
-		{
-			Destroy(instance);
-			instance = this;
-		}
-	}
+    private List<PlayerInput> players = new List<PlayerInput>();
 
-	private void Start()
-	{
-		PlayerInputManager.instance.JoinPlayer(0, -1, null);
-	}
+    public List<PlayerInput> Players { get => players; set => players = value; }
 
-	void OnPlayerJoined(PlayerInput playerInput)
-	{
-		players.Add(playerInput);
+    private void Awake()
+    {
+        if (!instance || instance != this)
+        {
+            Destroy(instance);
+            instance = this;
+        }
+    }
 
-		if (playerJoinedGame != null)
-		{
-			playerJoinedGame(playerInput);
-		}
-	}
+    private void Start()
+    {
+        PlayerInputManager.instance.JoinPlayer(0, -1, null);
+        for (int i = 0; i < players.Count; i++)
+        { 
+            treeManager.AddPlayerTransform(players[i].transform);
+        }
+    }
 
-	void OnPlayerLeft(PlayerInput playerInput)
-	{
-		players.Remove(playerInput);
-	}
+    void OnPlayerJoined(PlayerInput playerInput)
+    {
+        Players.Add(playerInput);
+
+        if (playerJoinedGame != null)
+        {
+            playerJoinedGame(playerInput);
+        }
+    }
+
+    void OnPlayerLeft(PlayerInput playerInput)
+    {
+        Players.Remove(playerInput);
+    }
 }
