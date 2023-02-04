@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject uiPanel = Instantiate(playerUiPanelPrefab, playerPanelParent);
             PlayerUIPanel panel = uiPanel.GetComponent<PlayerUIPanel>();
-            panel.PlayerText.text = "Player: " + i;
+            panel.PlayerText.text = "Player: " + i+1;
             uiPanels.Add(uiPanel);
         }
     }
