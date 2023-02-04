@@ -14,9 +14,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI(int players)
     {
-        Debug.Log(players);
         if (players == 0) return;
-        Debug.Log(players);
         RemoveAllUiPanels();
         for (int i = 0; i < players; i++)
         {

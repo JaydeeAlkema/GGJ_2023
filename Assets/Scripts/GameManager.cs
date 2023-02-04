@@ -33,11 +33,6 @@ public class GameManager : MonoBehaviour
 
 		leaveAction.Enable();
 		leaveAction.performed += context => OnLeaveAction(context);
-
-        //TODO: Run this every time a new player joins
-        //Debug.Log(players.Count);
-        //uiManager.UpdateUI(players.Count);
-
     }
 
 	private void Start()
