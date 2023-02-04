@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Direction Indicator",
+                    "type": "PassThrough",
+                    "id": "3576ad6f-79a8-4200-bb43-a79dcabd0ce9",
+                    "expectedControlType": "Vector2",
+                    "processors": "StickDeadzone(min=0.5)",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -187,6 +196,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "addbe173-605f-4423-a56e-9c3165cff241",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Direction Indicator",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

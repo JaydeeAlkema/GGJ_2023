@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 	public System.Action<PlayerInput> playerJoinedGame;
 	public System.Action<PlayerInput> playerLeftGame;
 
-	private List<PlayerInput> players = new List<PlayerInput>();
+	[SerializeField] private List<PlayerInput> players = new List<PlayerInput>();
 
 	private void Awake()
 	{
@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour
 			playerJoinedGame(playerInput);
 		}
 	}
-
 	void OnPlayerLeft(PlayerInput playerInput)
 	{
 		players.Remove(playerInput);
