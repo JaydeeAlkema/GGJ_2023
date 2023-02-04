@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-		PlayerInputManager.instance.JoinPlayer(0, -1, null);
 		for (int i = 0; i < players.Count; i++)
 		{
 			treeManager.AddPlayerTransform(players[i].transform);
