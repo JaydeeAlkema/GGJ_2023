@@ -25,4 +25,8 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		playerController.OnJump(context);
 	}
+	public void OnAttack(InputAction.CallbackContext context)
+	{
+		playerController.OnAttack(context);
+	}
 }

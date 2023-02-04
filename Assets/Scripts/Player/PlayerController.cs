@@ -36,27 +36,23 @@ public class PlayerController : MonoBehaviour
 	}
 	private void Update()
 	{
+		SetAnimatorStates();
 		EvaluateJump();
-		//SetAnimatorStates();
 	}
 	#endregion
 
 	#region Input Action Callbacks
 	public void OnGroundedMovement(InputAction.CallbackContext context)
 	{
-		AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-		string currentAnimationName = currentClipInfo[0].clip.name;
-
 		Vector2 inputAxis = context.ReadValue<Vector2>();
 		rb2d.velocity = new Vector2(inputAxis.x * moveSpeed, rb2d.velocity.y);
-		if (currentAnimationName != "Player Run") animator.SetTrigger("Run");
 
 		if (inputAxis == Vector2.zero) return;
+
 		float angle = Mathf.Atan2(inputAxis.y, inputAxis.x) * Mathf.Rad2Deg;
 		directionIndicator.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
 		FlipSprite(inputAxis);
-		if (context.canceled) animator.SetTrigger("Idle");
 	}
 	public void OnJump(InputAction.CallbackContext context)
 	{
@@ -66,6 +62,13 @@ public class PlayerController : MonoBehaviour
 		{
 			StartCoroutine(JumpCooldownCoroutine());
 			rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+		}
+	}
+	public void OnAttack(InputAction.CallbackContext context)
+	{
+		if (context.performed)
+		{
+			animator.SetTrigger("Attack");
 		}
 	}
 	#endregion
@@ -113,10 +116,7 @@ public class PlayerController : MonoBehaviour
 	}
 	private void SetAnimatorStates()
 	{
-		animator.SetBool("Moving", IsMoving());
-		animator.SetBool("Jumping", IsJumping());
-		animator.SetBool("Grounded", IsGrounded());
-		animator.SetFloat("Velocity Y", rb2d.velocity.y);
+		animator.SetFloat("Velocity X", rb2d.velocity.x);
 	}
 	private IEnumerator JumpCooldownCoroutine()
 	{
