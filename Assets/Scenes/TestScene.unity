@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028358, g: 0.2257145, b: 0.3069229, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028325, g: 0.22571391, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3475,6 +3475,8 @@ MonoBehaviour:
   currentLevel: 1
   projectilePrefab: {fileID: 124434889490120683, guid: 6d2f34a5c4b407048bb81a5ff4cd9442,
     type: 3}
+  buffPrefab: {fileID: 4912813512080388123, guid: 78e4dde80be379b46bd3623aa933cd2d,
+    type: 3}
 --- !u!4 &868629084
 Transform:
   m_ObjectHideFlags: 0
@@ -5773,35 +5775,19 @@ MonoBehaviour:
     m_Name: Join
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: b09bb6e9-6d42-48ce-8276-8e146a5a8350
+    m_Id: 4130b4cb-5de3-476d-bba4-44e61bb1b947
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 012ab019-70ac-49ca-93d8-244a1bdb06cb
-      m_Path: <Gamepad>/start
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Join
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
   leaveAction:
     m_Name: Leave
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 72f67dba-1046-4ae1-81e7-6557bb5f7313
+    m_Id: 08538235-48dd-476a-86f6-fff70109a2a0
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 3403876c-c16a-41f3-a38f-b0de5b044288
-      m_Path: <Gamepad>/select
-      m_Interactions: Hold(duration=3)
-      m_Processors: 
-      m_Groups: 
-      m_Action: Leave
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
 --- !u!114 &1429488470
 MonoBehaviour:

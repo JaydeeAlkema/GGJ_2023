@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,17 @@ public class TreeManager : MonoBehaviour
 
 
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject buffPrefab;
     private List<GameObject> projectiles;
+
+    private float timeBetweenBuffEvents = 5;
     private float timeBetweenTreeEvents = 1f;
 
 
     public void Awake()
     {
         StartCoroutine(treeEventTimer());
+        StartCoroutine(buffSpawnEventTimer());
     }
     public void AddPlayerTransform(Transform transform)
     {
@@ -46,7 +51,7 @@ public class TreeManager : MonoBehaviour
 
     public Vector3 GetRandomProjectileSpawnPoint()
     {
-        int r = Random.Range(0, projectileSpawnPoints.Count);
+        int r = UnityEngine.Random.Range(0, projectileSpawnPoints.Count);
         return projectileSpawnPoints[r].position;
     }
 
@@ -56,6 +61,18 @@ public class TreeManager : MonoBehaviour
         {
             ShootProjectileAtPlayer();
             yield return new WaitForSeconds(timeBetweenTreeEvents);
+        }
+    }
+
+    public IEnumerator buffSpawnEventTimer()
+    {
+        while (true)
+        {
+            Vector3 spawnPos = GetRandomProjectileSpawnPoint();
+            GameObject buffObject = Instantiate(buffPrefab, spawnPos, Quaternion.identity);
+            BuffCollectable buff = buffObject.GetComponent<BuffCollectable>();
+            buff.buffType = (BuffTypes)UnityEngine.Random.Range(0, Enum.GetNames(typeof(BuffTypes)).Length);
+            yield return new WaitForSeconds(timeBetweenBuffEvents);
         }
     }
 }
