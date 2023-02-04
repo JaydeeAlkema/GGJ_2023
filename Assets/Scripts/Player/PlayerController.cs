@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("References")] private Transform groundedCheckTransform = default;
 
 	private Rigidbody2D rb2d = default;
-	private Controlls_Player1 PlayerControls = default;
+	private PlayerControls PlayerControls = default;
 	private Animator animator;
 
 	#region Unity Callbacks
@@ -27,22 +27,22 @@ public class PlayerController : MonoBehaviour
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		animator = GetComponentInChildren<Animator>();
-		PlayerControls = new Controlls_Player1();
+		PlayerControls = new PlayerControls();
 
 		rb2d.gravityScale = defaultGravityScale;
 	}
 	private void OnEnable()
 	{
-		PlayerControls.PlayerActions.GroundedMovement.performed += Move;
-		PlayerControls.PlayerActions.GroundedMovement.Enable();
+		PlayerControls.Player1.GroundedMovement.performed += Move;
+		PlayerControls.Player1.GroundedMovement.Enable();
 
-		PlayerControls.PlayerActions.Jump.performed += Jump;
-		PlayerControls.PlayerActions.Jump.Enable();
+		PlayerControls.Player1.Jump.performed += Jump;
+		PlayerControls.Player1.Jump.Enable();
 	}
 	private void OnDisable()
 	{
-		PlayerControls.PlayerActions.GroundedMovement.Disable();
-		PlayerControls.PlayerActions.Jump.Disable();
+		PlayerControls.Player1.GroundedMovement.Disable();
+		PlayerControls.Player1.Jump.Disable();
 	}
 	private void Update()
 	{
