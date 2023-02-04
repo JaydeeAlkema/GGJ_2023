@@ -1,7 +1,5 @@
 using NaughtyAttributes;
 using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,8 +7,10 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField, Foldout("Movement Variables")] private float moveSpeed = 2f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
+	[SerializeField, Foldout("Movement Variables")] private float jumpCooldown = 0.5f;
 	[SerializeField, Foldout("Movement Variables")] private float defaultGravityScale = 5f;
 	[SerializeField, Foldout("Movement Variables")] private float fallGravityScale = 9f;
+	[SerializeField, Foldout("Movement Variables")] private bool canJump = true;
 	[Space]
 	[SerializeField, Foldout("Movement Variables")] private LayerMask groundedMask = default;
 	[SerializeField, Foldout("Movement Variables")] private float groundDetectionDistance = 0.35f;
@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("References")] private Transform groundedCheckTransform = default;
 
 	private Rigidbody2D rb2d = default;
-	private PlayerControls PlayerControls = default;
 	private Animator animator;
 
 	#region Unity Callbacks
@@ -27,22 +26,8 @@ public class PlayerController : MonoBehaviour
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		animator = GetComponentInChildren<Animator>();
-		PlayerControls = new PlayerControls();
 
 		rb2d.gravityScale = defaultGravityScale;
-	}
-	private void OnEnable()
-	{
-		PlayerControls.Player.GroundedMovement.performed += Move;
-		PlayerControls.Player.GroundedMovement.Enable();
-
-		PlayerControls.Player.Jump.performed += Jump;
-		PlayerControls.Player.Jump.Enable();
-	}
-	private void OnDisable()
-	{
-		PlayerControls.Player.GroundedMovement.Disable();
-		PlayerControls.Player.Jump.Disable();
 	}
 	private void Update()
 	{
@@ -52,17 +37,22 @@ public class PlayerController : MonoBehaviour
 	#endregion
 
 	#region Input Action Callbacks
-	private void Move(InputAction.CallbackContext context)
+	public void OnGroundedMovement(InputAction.CallbackContext context)
 	{
 		Vector2 inputAxis = context.ReadValue<Vector2>();
 		rb2d.velocity = new Vector2(inputAxis.x * moveSpeed, rb2d.velocity.y);
 
 		FlipSprite(inputAxis);
 	}
-	private void Jump(InputAction.CallbackContext context)
+	public void OnJump(InputAction.CallbackContext context)
 	{
-		if (!IsGrounded()) return;
-		rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+		if (!IsGrounded() || !canJump) return;
+
+		if (context.performed)
+		{
+			StartCoroutine(JumpCooldownCoroutine());
+			rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+		}
 	}
 	#endregion
 
@@ -80,14 +70,14 @@ public class PlayerController : MonoBehaviour
 	}
 	private bool IsGrounded()
 	{
-		if (Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, groundDetectionDistance, groundedMask))
+		if (!Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, groundDetectionDistance, groundedMask))
 		{
-			rb2d.gravityScale = defaultGravityScale;
-			return true;
+			{
+				return false;
+			}
 		}
-		{
-			return false;
-		}
+		rb2d.gravityScale = defaultGravityScale;
+		return true;
 	}
 	private bool IsMoving()
 	{
@@ -113,6 +103,12 @@ public class PlayerController : MonoBehaviour
 		animator.SetBool("Jumping", IsJumping());
 		animator.SetBool("Grounded", IsGrounded());
 		animator.SetFloat("Velocity Y", rb2d.velocity.y);
+	}
+	private IEnumerator JumpCooldownCoroutine()
+	{
+		canJump = false;
+		yield return new WaitForSeconds(jumpCooldown);
+		canJump = true;
 	}
 
 	private void OnDrawGizmos()
