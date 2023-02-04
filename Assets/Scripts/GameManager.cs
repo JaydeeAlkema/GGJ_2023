@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance;
 
 	[SerializeField] private TreeManager treeManager;
+    [SerializeField] private UIManager uiManager;
 
 	[SerializeField] private Transform player1SpawnPoint = default;
 	[SerializeField] private Transform player2SpawnPoint = default;
@@ -32,7 +33,12 @@ public class GameManager : MonoBehaviour
 
 		leaveAction.Enable();
 		leaveAction.performed += context => OnLeaveAction(context);
-	}
+
+        //TODO: Run this every time a new player joins
+        //Debug.Log(players.Count);
+        //uiManager.UpdateUI(players.Count);
+
+    }
 
 	private void Start()
 	{
@@ -42,6 +48,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+    //Event in Unity
 	void OnPlayerJoined(PlayerInput playerInput)
 	{
 		players.Add(playerInput);
@@ -50,7 +57,10 @@ public class GameManager : MonoBehaviour
 		{
 			playerJoinedGame(playerInput);
 		}
-	}
+
+        uiManager.UpdateUI(players.Count);
+    }
+
 	void OnPlayerLeft(PlayerInput playerInput)
 	{
 		players.Remove(playerInput);
@@ -59,7 +69,8 @@ public class GameManager : MonoBehaviour
 	void OnJoinAction(InputAction.CallbackContext context)
 	{
 		PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
-	}
+
+    }
 	void OnLeaveAction(InputAction.CallbackContext context)
 	{
 
