@@ -33,16 +33,16 @@ public class PlayerController : MonoBehaviour
 	}
 	private void OnEnable()
 	{
-		PlayerControls.Player1.GroundedMovement.performed += Move;
-		PlayerControls.Player1.GroundedMovement.Enable();
+		PlayerControls.Player.GroundedMovement.performed += Move;
+		PlayerControls.Player.GroundedMovement.Enable();
 
-		PlayerControls.Player1.Jump.performed += Jump;
-		PlayerControls.Player1.Jump.Enable();
+		PlayerControls.Player.Jump.performed += Jump;
+		PlayerControls.Player.Jump.Enable();
 	}
 	private void OnDisable()
 	{
-		PlayerControls.Player1.GroundedMovement.Disable();
-		PlayerControls.Player1.Jump.Disable();
+		PlayerControls.Player.GroundedMovement.Disable();
+		PlayerControls.Player.Jump.Disable();
 	}
 	private void Update()
 	{

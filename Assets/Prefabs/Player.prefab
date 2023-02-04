@@ -127,7 +127,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
-  m_DefaultActionMap: PlayerActions
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &2002265051022544524
@@ -142,10 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2725ee5ecf7544aa7873bb1a3bee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpForce: 20
-  defaultGravityScale: 5
-  fallGravityScale: 10
+  moveSpeed: 12
+  jumpForce: 35
+  defaultGravityScale: 8
+  fallGravityScale: 16
   groundedMask:
     serializedVersion: 2
     m_Bits: 64

@@ -24,7 +24,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Player1"",
+            ""name"": ""Player"",
             ""id"": ""51a8c48e-f51c-4f5c-9980-9519c8fa40e5"",
             ""actions"": [
                 {
@@ -240,10 +240,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Player1
-        m_Player1 = asset.FindActionMap("Player1", throwIfNotFound: true);
-        m_Player1_GroundedMovement = m_Player1.FindAction("Grounded Movement", throwIfNotFound: true);
-        m_Player1_Jump = m_Player1.FindAction("Jump", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_GroundedMovement = m_Player.FindAction("Grounded Movement", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -300,34 +300,34 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player1
-    private readonly InputActionMap m_Player1;
-    private IPlayer1Actions m_Player1ActionsCallbackInterface;
-    private readonly InputAction m_Player1_GroundedMovement;
-    private readonly InputAction m_Player1_Jump;
-    public struct Player1Actions
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_GroundedMovement;
+    private readonly InputAction m_Player_Jump;
+    public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
-        public Player1Actions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @GroundedMovement => m_Wrapper.m_Player1_GroundedMovement;
-        public InputAction @Jump => m_Wrapper.m_Player1_Jump;
-        public InputActionMap Get() { return m_Wrapper.m_Player1; }
+        public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @GroundedMovement => m_Wrapper.m_Player_GroundedMovement;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Player1Actions set) { return set.Get(); }
-        public void SetCallbacks(IPlayer1Actions instance)
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
         {
-            if (m_Wrapper.m_Player1ActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @GroundedMovement.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnGroundedMovement;
-                @GroundedMovement.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnGroundedMovement;
-                @GroundedMovement.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnGroundedMovement;
-                @Jump.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnJump;
+                @GroundedMovement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundedMovement;
+                @GroundedMovement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundedMovement;
+                @GroundedMovement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundedMovement;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
-            m_Wrapper.m_Player1ActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @GroundedMovement.started += instance.OnGroundedMovement;
@@ -339,7 +339,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             }
         }
     }
-    public Player1Actions @Player1 => new Player1Actions(this);
+    public PlayerActions @Player => new PlayerActions(this);
     private int m_GamepadSchemeIndex = -1;
     public InputControlScheme GamepadScheme
     {
@@ -358,7 +358,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
-    public interface IPlayer1Actions
+    public interface IPlayerActions
     {
         void OnGroundedMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
