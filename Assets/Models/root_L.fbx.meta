@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: abf24610fc253a84faf2e06c9c0c1c36
+guid: a7a151e647969e34f98c0bb95d09b3cd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bark.001
+      name: Material
     second: {fileID: 2100000, guid: edc037dcca61cd2439886dcac7929fcf, type: 2}
   materials:
     materialImportMode: 2
@@ -47,8 +47,8 @@ ModelImporter:
     sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
