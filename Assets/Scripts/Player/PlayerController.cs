@@ -47,6 +47,11 @@ public class PlayerController : MonoBehaviour
 		Vector2 inputAxis = context.ReadValue<Vector2>();
 		rb2d.velocity = new Vector2(inputAxis.x * moveSpeed, rb2d.velocity.y);
 
+		if (inputAxis == Vector2.zero) return;
+
+		float angle = Mathf.Atan2(inputAxis.y, inputAxis.x) * Mathf.Rad2Deg;
+		directionIndicator.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
 		FlipSprite(inputAxis);
 	}
 	public void OnJump(InputAction.CallbackContext context)
@@ -61,14 +66,14 @@ public class PlayerController : MonoBehaviour
 	}
 	public void OnDirectionMove(InputAction.CallbackContext context)
 	{
-		if (context.performed)
-		{
-			Vector2 stickDirection = context.ReadValue<Vector2>().normalized;
-			if (stickDirection == Vector2.zero) return;
+		//if (context.performed)
+		//{
+		//	Vector2 stickDirection = context.ReadValue<Vector2>().normalized;
+		//	if (stickDirection == Vector2.zero) return;
 
-			float angle = Mathf.Atan2(stickDirection.y, stickDirection.x) * Mathf.Rad2Deg;
-			directionIndicator.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-		}
+		//	float angle = Mathf.Atan2(stickDirection.y, stickDirection.x) * Mathf.Rad2Deg;
+		//	directionIndicator.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+		//}
 	}
 	#endregion
 
