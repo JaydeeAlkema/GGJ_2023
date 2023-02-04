@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2002265051022544626}
   - component: {fileID: 2002265051022544525}
   - component: {fileID: 2002265051022544524}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
-  jumpForce: 30
+  jumpForce: 35
   jumpCooldown: 0.5
   defaultGravityScale: 8
   fallGravityScale: 16
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002265051181093155}
   - component: {fileID: 2002265051181093152}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002265052158319259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground Check Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
