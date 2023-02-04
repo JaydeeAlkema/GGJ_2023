@@ -25,8 +25,4 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		playerController.OnJump(context);
 	}
-	public void OnDirectionMove(InputAction.CallbackContext context)
-	{
-		playerController.OnDirectionMove(context);
-	}
 }
