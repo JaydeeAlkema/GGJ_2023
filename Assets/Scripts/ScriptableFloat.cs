@@ -11,12 +11,12 @@ public class ScriptableFloat : ScriptableObject
 
     public void OnEnable()
     {
-        currentValue = startValue;
+        if (reset) currentValue = startValue;
     }
 
     public void OnDisable()
     {
-        currentValue = startValue;
+        if (reset) currentValue = startValue;
     }
 
 }

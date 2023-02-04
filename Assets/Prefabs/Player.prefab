@@ -262,7 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2725ee5ecf7544aa7873bb1a3bee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
+  health: 100
+  moveSpeed: {fileID: 11400000, guid: 3a89a99e312805444ab15d7f606aaf69, type: 2}
   jumpForce: 35
   jumpCooldown: 0.5
   defaultGravityScale: 8
@@ -276,6 +277,8 @@ MonoBehaviour:
   groundedCheckTransform: {fileID: 2002265052158319259}
   directionIndicator: {fileID: 7696491140078475026}
   currentBuffs: []
+  buffScriptableObject: {fileID: 11400000, guid: 0fdab4c6205131d4488e06264e86b181,
+    type: 2}
 --- !u!1 &2002265051181093154
 GameObject:
   m_ObjectHideFlags: 0
