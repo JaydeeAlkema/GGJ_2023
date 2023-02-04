@@ -82,10 +82,10 @@ public class PlayerController : MonoBehaviour
 		switch (inputAxis.x)
 		{
 			case 1:
-				spriteRenderer.flipX = false;
+				spriteRenderer.flipX = true;
 				break;
 			case -1:
-				spriteRenderer.flipX = true;
+				spriteRenderer.flipX = false;
 				break;
 		}
 	}
