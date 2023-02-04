@@ -47,15 +47,19 @@ public class PlayerController : MonoBehaviour
 	#region Input Action Callbacks
 	public void OnGroundedMovement(InputAction.CallbackContext context)
 	{
+		AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+		string currentAnimationName = currentClipInfo[0].clip.name;
+
 		Vector2 inputAxis = context.ReadValue<Vector2>();
 		rb2d.velocity = new Vector2(inputAxis.x * moveSpeed, rb2d.velocity.y);
+		if (currentAnimationName != "Player Run") animator.SetTrigger("Run");
 
 		if (inputAxis == Vector2.zero) return;
-
 		float angle = Mathf.Atan2(inputAxis.y, inputAxis.x) * Mathf.Rad2Deg;
 		directionIndicator.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
 		FlipSprite(inputAxis);
+		if (context.canceled) animator.SetTrigger("Idle");
 	}
 	public void OnJump(InputAction.CallbackContext context)
 	{
@@ -67,27 +71,16 @@ public class PlayerController : MonoBehaviour
 			rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 		}
 	}
-	public void OnDirectionMove(InputAction.CallbackContext context)
-	{
-		//if (context.performed)
-		//{
-		//	Vector2 stickDirection = context.ReadValue<Vector2>().normalized;
-		//	if (stickDirection == Vector2.zero) return;
-
-		//	float angle = Mathf.Atan2(stickDirection.y, stickDirection.x) * Mathf.Rad2Deg;
-		//	directionIndicator.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-		//}
-	}
 	#endregion
 
 	private void FlipSprite(Vector2 inputAxis)
 	{
 		switch (inputAxis.x)
 		{
-			case 1:
+			case > 0:
 				spriteRenderer.flipX = true;
 				break;
-			case -1:
+			case < 0:
 				spriteRenderer.flipX = false;
 				break;
 		}
