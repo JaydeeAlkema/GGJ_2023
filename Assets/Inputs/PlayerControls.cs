@@ -38,7 +38,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Jump"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""9d6c910e-9f5f-49e9-933a-ea12f1a99402"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

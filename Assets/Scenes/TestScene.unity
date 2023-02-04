@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028325, g: 0.22571391, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028358, g: 0.2257145, b: 0.3069229, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832575517}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
@@ -4408,6 +4408,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3677871804177914180, guid: d6b929b2b540f58468b2cb0a8bae9115,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 652388acffc6ed340b3780ed9693fba5, type: 2}
     - target: {fileID: 6328300406400652530, guid: d6b929b2b540f58468b2cb0a8bae9115,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5376,7 +5381,7 @@ GameObject:
   - component: {fileID: 1407962053}
   - component: {fileID: 1407962052}
   - component: {fileID: 1407962054}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5516,6 +5521,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1SpawnPoint: {fileID: 1865716112}
   player2SpawnPoint: {fileID: 895774495}
+  joinAction:
+    m_Name: Join
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b09bb6e9-6d42-48ce-8276-8e146a5a8350
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 012ab019-70ac-49ca-93d8-244a1bdb06cb
+      m_Path: <Gamepad>/start
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Join
+      m_Flags: 0
+    m_Flags: 0
+  leaveAction:
+    m_Name: Leave
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 72f67dba-1046-4ae1-81e7-6557bb5f7313
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3403876c-c16a-41f3-a38f-b0de5b044288
+      m_Path: <Gamepad>/select
+      m_Interactions: Hold(duration=3)
+      m_Processors: 
+      m_Groups: 
+      m_Action: Leave
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &1429488470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5531,7 +5570,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 2
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5570,7 +5609,7 @@ MonoBehaviour:
         m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 2002265051022544526, guid: 3b6b3d3af9858c544858d54a23a98af4,
+  m_PlayerPrefab: {fileID: 8295195347700679164, guid: 9ed85c75b3a116349a9aeee33a195f37,
     type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
