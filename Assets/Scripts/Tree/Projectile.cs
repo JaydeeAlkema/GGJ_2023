@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IDamageable
 {
     private float speed = 10f;
 
@@ -17,5 +17,16 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         rb.velocity = transform.right * Speed;
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void DealDamage(int damage, PlayerController player)
+    {
+        player.Health -= damage;
+        Debug.Log(player.Health);
+        Destroy(gameObject);
     }
 }

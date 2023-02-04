@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private int health = 100;
 	[SerializeField, Foldout("Movement Variables")] private float moveSpeed = 2f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpCooldown = 0.5f;
@@ -25,8 +26,10 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody2D rb2d = default;
 	private Animator animator;
 
-	#region Unity Callbacks
-	private void Awake()
+    public int Health { get => health; set => health = value; }
+
+    #region Unity Callbacks
+    private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		animator = GetComponentInChildren<Animator>();
@@ -131,9 +134,18 @@ public class PlayerController : MonoBehaviour
 		Gizmos.DrawRay(groundedCheckTransform.position, Vector2.down * groundDetectionDistance);
 	}
 
-	#region buffs related stuff
-	private void OnTriggerEnter2D(Collider2D other)
+    #region buffs and collision related stuff
+    private void OnTriggerEnter2D(Collider2D other)
 	{
+        if (other.gameObject.tag == "Projectile")
+        {
+            IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.DealDamage(10, this);
+            }
+        }
+
 		if (other.gameObject.tag == "Collectable")
 		{
 			ICollectable collectable = other.gameObject.GetComponent<ICollectable>();
@@ -193,5 +205,6 @@ public class PlayerController : MonoBehaviour
 			yield return new WaitForSeconds(1f);
 		}
 	}
-	#endregion
+    #endregion
+
 }
