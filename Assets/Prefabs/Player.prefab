@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2725ee5ecf7544aa7873bb1a3bee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 3
   health: 100
   damage: {fileID: 11400000, guid: 4c159b6f58c06df46872a324c0540db3, type: 2}
   knockback: {fileID: 11400000, guid: b27710c54044c8c4aa6dfa32e548a711, type: 2}
@@ -275,11 +276,11 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 64
-  groundDetectionDistance: 0.35
+  groundDetectionDistance: 0.5
   spriteRenderer: {fileID: 2002265051181093152}
   groundedCheckTransform: {fileID: 2002265052158319259}
   directionIndicator: {fileID: 7696491140078475026}
-  dustCloudParticleSystem: {fileID: 6102013095077368496}
+  dustCloudParticleSystem: {fileID: 6102013095077368498}
   currentBuffs: []
   buffScriptableObject: {fileID: 11400000, guid: 0fdab4c6205131d4488e06264e86b181,
     type: 2}
@@ -550,9 +551,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7526a06573842140863df1171112f10, type: 3}
---- !u!1 &6102013095077368496 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7506353291422497526, guid: f7526a06573842140863df1171112f10,
+--- !u!198 &6102013095077368498 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7506353291422497524, guid: f7526a06573842140863df1171112f10,
     type: 3}
   m_PrefabInstance: {fileID: 4360988677888550982}
   m_PrefabAsset: {fileID: 0}

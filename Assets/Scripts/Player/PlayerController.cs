@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int lives = 3;
+	[SerializeField] private int lives = 3;
 	[SerializeField] private int health = 100;
 	[SerializeField] private ScriptableInt damage;
 	[SerializeField] private ScriptableFloat knockback;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("References")] private SpriteRenderer spriteRenderer = default;
 	[SerializeField, Foldout("References")] private Transform groundedCheckTransform = default;
 	[SerializeField, Foldout("References")] private Transform directionIndicator = default;
-	[SerializeField, Foldout("References")] private GameObject dustCloudParticleSystem = default;
+	[SerializeField, Foldout("References")] private ParticleSystem dustCloudParticleSystem = default;
 
 	[SerializeField, Foldout("Buffs")] private List<Buff> currentBuffs = new List<Buff>();
 	[SerializeField, Foldout("Buffs")] private BuffsScriptableObject buffScriptableObject;
@@ -39,24 +39,24 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("Debug")] private float comboAttackTimer = 0f;
 
 	public int Health { get => health; set => health = value; }
-    public int Lives { get => lives; set => lives = value; }
+	public int Lives { get => lives; set => lives = value; }
 
-    #region Unity Callbacks
-    private void Awake()
+	#region Unity Callbacks
+	private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		animator = GetComponentInChildren<Animator>();
 
 		rb2d.gravityScale = defaultGravityScale;
 		StartCoroutine(UpdateBuffs());
-        AddPlayerToListsAndSetPositions();
+		AddPlayerToListsAndSetPositions();
 	}
 	private void Update()
 	{
 		SetAnimatorStates();
 		EvaluateJump();
 		ComboAttackTimerCountdown();
-        CheckIfDead();
+		CheckIfDead();
 	}
 	#endregion
 
@@ -113,14 +113,15 @@ public class PlayerController : MonoBehaviour
 	}
 	private bool IsGrounded()
 	{
-		if (!Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, groundDetectionDistance, groundedMask))
+		if (Physics2D.Raycast(groundedCheckTransform.position, Vector2.down, groundDetectionDistance, groundedMask))
 		{
-			{
-				return false;
-			}
+			rb2d.gravityScale = defaultGravityScale;
+			return true;
 		}
-		rb2d.gravityScale = defaultGravityScale;
-		return true;
+		else
+		{
+			return false;
+		}
 	}
 	private bool IsMoving()
 	{
@@ -297,19 +298,19 @@ public class PlayerController : MonoBehaviour
 	}
 	#endregion
 
-    public void AddPlayerToListsAndSetPositions()
-    {
-        GameManager.instance.UiManager.PlayerControllers.Add(this);
-        GameManager.instance.UiManager.UpdateUI(GameManager.instance.UiManager.PlayerControllers);
-        GameManager.instance.RespawnPlayers(gameObject);
-    }
+	public void AddPlayerToListsAndSetPositions()
+	{
+		GameManager.instance.UiManager.PlayerControllers.Add(this);
+		GameManager.instance.UiManager.UpdateUI(GameManager.instance.UiManager.PlayerControllers);
+		GameManager.instance.RespawnPlayers(gameObject);
+	}
 
-    public void CheckIfDead()
-    {
-        if (health < 0)
-        {
-            GameManager.instance.RespawnPlayers(gameObject);
-            health = 100;
-        }
-    }
+	public void CheckIfDead()
+	{
+		if (health < 0)
+		{
+			GameManager.instance.RespawnPlayers(gameObject);
+			health = 100;
+		}
+	}
 }
