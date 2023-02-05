@@ -22,14 +22,14 @@ public class UIManager : MonoBehaviour
 			GameObject uiPanel = Instantiate(playerUiPanelPrefab, playerPanelParent);
 			PlayerUIPanel panel = uiPanel.GetComponent<PlayerUIPanel>();
 			Debug.Log(uiPanel.GetComponent<PlayerUIPanel>());
+            PlayerControllers[i].PlayerNumber = i;
 
-			panel.PlayerText.text = "Player: " + (i + 1);
+            panel.PlayerText.text = "Player: " + (i + 1);
 			panel.HealthbarFillImage.fillAmount = (float)(players[i].Health / 100f);
 			uiPanels.Add(uiPanel);
 		}
 	}
 
-	//TODO: use this
 	public void UpdateHealthBars()
 	{
 		for (int i = 0; i < playerControllers.Count; i++)

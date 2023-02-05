@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField, ReadOnly] private int playerNumber;
     [SerializeField] private int lives = 3;
 	[SerializeField] private int health = 100;
 	[SerializeField] private ScriptableInt damage;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
 	public int Health { get => health; set => health = value; }
     public int Lives { get => lives; set => lives = value; }
+    public int PlayerNumber { get => playerNumber; set => playerNumber = value; }
 
     #region Unity Callbacks
     private void Awake()
