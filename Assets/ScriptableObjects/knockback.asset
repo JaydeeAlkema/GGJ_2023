@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e3d2a9f0ac4e2846a963520d6e162ad, type: 3}
-  m_Name: BuffData
+  m_Script: {fileID: 11500000, guid: 7179b64980e97fb4a947103d299bf8e0, type: 3}
+  m_Name: knockback
   m_EditorClassIdentifier: 
-  boostedMovementSpeed: 16
-  boostedDamage: 15
-  boostedKnockback: 40
-  moveSpeedBuffDuration: 10
-  damageBuffDuration: 10
-  boostedKnockbackDuration: 10
+  startValue: 10
+  currentValue: 10
+  reset: 0

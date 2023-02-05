@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private int health = 100;
     [SerializeField] private ScriptableInt damage;
-	[SerializeField, Foldout("Movement Variables")] private ScriptableFloat moveSpeed;
+    [SerializeField] private ScriptableFloat knockback;
+    [SerializeField, Foldout("Movement Variables")] private ScriptableFloat moveSpeed;
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpCooldown = 0.5f;
 	[SerializeField, Foldout("Movement Variables")] private float defaultGravityScale = 5f;
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
 			GameObject newAttackGO = Instantiate(attacks[currentAttackIndex], attackSpawnPoint.position, directionIndicator.transform.rotation);
 			newAttackGO.GetComponent<Attack>().sender = gameObject;
             newAttackGO.GetComponent<Attack>().Damage = damage.currentValue;
-
+            newAttackGO.GetComponent<Attack>().PushForce = knockback.currentValue;
             currentAttackIndex++;
 			if (currentAttackIndex >= attacks.Count) currentAttackIndex = 0;
 		}
@@ -233,7 +234,7 @@ public class PlayerController : MonoBehaviour
 				moveSpeed.currentValue = buffScriptableObject.boostedMovementSpeed;
 				break;
 			case BuffTypes.Knockback:
-				//knockback.currentValue = buffScriptableObject.boostedKnockback;
+				knockback.currentValue = buffScriptableObject.boostedKnockback;
 				break;
 			case BuffTypes.Damage:
                 damage.currentValue = buffScriptableObject.boostedDamage;
@@ -259,7 +260,7 @@ public class PlayerController : MonoBehaviour
 						moveSpeed.currentValue = buffScriptableObject.boostedMovementSpeed;
 						break;
 					case BuffTypes.Knockback:
-						//knockback.currentValue = buffScriptableObject.boostedKnockback;
+						knockback.currentValue = buffScriptableObject.boostedKnockback;
 						break;
 					case BuffTypes.Damage:
                         damage.currentValue = buffScriptableObject.boostedDamage;
@@ -278,7 +279,7 @@ public class PlayerController : MonoBehaviour
 							moveSpeed.currentValue = moveSpeed.startValue;
 							break;
 						case BuffTypes.Knockback:
-							//knockBack.currentValue = knockBack.startvalue;
+							knockback.currentValue = knockback.startValue;
 							break;
 						case BuffTypes.Damage:
 							damage.currentValue = damage.startValue;
