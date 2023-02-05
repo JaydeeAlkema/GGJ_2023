@@ -30,7 +30,7 @@ public class Attack : MonoBehaviour/*, IDamageable*/
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (!canDealDamage || collision.gameObject == sender) return;
-		if (collision.GetComponent<PlayerController>() != null || collision.GetComponent<Buff>() != null)
+		if (collision.GetComponent<PlayerController>() != null || collision.GetComponent<BuffCollectable>() != null)
 		{
 			collision.GetComponent<PlayerController>().Health -= damage;
 			GameManager.instance.UiManager.UpdateHealthBars();
