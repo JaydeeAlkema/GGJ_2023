@@ -28,5 +28,6 @@ public class Projectile : MonoBehaviour, IDamageable
         player.Health -= damage;
         Debug.Log(player.Health);
         Destroy(gameObject);
+        GameManager.instance.UiManager.UpdateHealthBars();
     }
 }
