@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private int health = 100;
+    [SerializeField] private ScriptableInt damage;
 	[SerializeField, Foldout("Movement Variables")] private ScriptableFloat moveSpeed;
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpCooldown = 0.5f;
@@ -87,7 +88,9 @@ public class PlayerController : MonoBehaviour
 
 			GameObject newAttackGO = Instantiate(attacks[currentAttackIndex], attackSpawnPoint.position, directionIndicator.transform.rotation);
 			newAttackGO.GetComponent<Attack>().sender = gameObject;
-			currentAttackIndex++;
+            newAttackGO.GetComponent<Attack>().Damage = damage.currentValue;
+
+            currentAttackIndex++;
 			if (currentAttackIndex >= attacks.Count) currentAttackIndex = 0;
 		}
 	}
@@ -233,7 +236,7 @@ public class PlayerController : MonoBehaviour
 				//knockback.currentValue = buffScriptableObject.boostedKnockback;
 				break;
 			case BuffTypes.Damage:
-				//damage.currentValue = buffScriptableObject.boostedDamage
+                damage.currentValue = buffScriptableObject.boostedDamage;
 				break;
 			default:
 				break;
@@ -259,7 +262,7 @@ public class PlayerController : MonoBehaviour
 						//knockback.currentValue = buffScriptableObject.boostedKnockback;
 						break;
 					case BuffTypes.Damage:
-						//damage.currentValue = buffScriptableObject.boostedDamage
+                        damage.currentValue = buffScriptableObject.boostedDamage;
 						break;
 					default:
 						break;
@@ -278,7 +281,7 @@ public class PlayerController : MonoBehaviour
 							//knockBack.currentValue = knockBack.startvalue;
 							break;
 						case BuffTypes.Damage:
-							//damage.currentValue = damage.startValue;
+							damage.currentValue = damage.startValue;
 							break;
 						default:
 							break;

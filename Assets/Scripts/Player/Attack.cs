@@ -13,7 +13,9 @@ public class Attack : MonoBehaviour/*, IDamageable*/
 
 	public GameObject sender = null;
 
-	private void OnEnable()
+    public int Damage { get => damage; set => damage = value; }
+
+    private void OnEnable()
 	{
 		Destroy(gameObject, destroyTime);
 	}
@@ -30,5 +32,6 @@ public class Attack : MonoBehaviour/*, IDamageable*/
 		if (!canDealDamage || collision.gameObject == sender) return;
 		if (collision.GetComponent<PlayerController>() != null) collision.GetComponent<PlayerController>().Health -= damage;
         GameManager.instance.UiManager.UpdateHealthBars();
+        
     }
 }

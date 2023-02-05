@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuffData
   m_EditorClassIdentifier: 
   boostedMovementSpeed: 16
-  boostedDamage: 20
+  boostedDamage: 15
   boostedKnockback: 10
   moveSpeedBuffDuration: 10
   damageBuffDuration: 10

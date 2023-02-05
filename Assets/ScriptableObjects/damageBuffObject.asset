@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54f349975e39974fa7fb17a7edcfa6a, type: 3}
   m_Name: damageBuffObject
   m_EditorClassIdentifier: 
-  startValue: 0
-  currentValue: 0
+  startValue: 10
+  currentValue: 10
   reset: 0
