@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
             Debug.Log(uiPanel.GetComponent<PlayerUIPanel>());
             
             panel.PlayerText.text = "Player: " + (i + 1);
-            panel.HealthbarFillImage.fillAmount = players[i].Health / 100;
+            panel.HealthbarFillImage.fillAmount = (float)(players[i].Health / 100f);
             uiPanels.Add(uiPanel);
         }
     }
@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < playerControllers.Count; i++)
         {
-            uiPanels[i].GetComponent<PlayerUIPanel>().HealthbarFillImage.fillAmount = playerControllers[i].Health / 100;
+            uiPanels[i].GetComponent<PlayerUIPanel>().HealthbarFillImage.fillAmount = (float)(playerControllers[i].Health / 100f);
         }
     }
 

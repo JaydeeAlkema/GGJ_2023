@@ -29,5 +29,6 @@ public class Attack : MonoBehaviour/*, IDamageable*/
 	{
 		if (!canDealDamage || collision.gameObject == sender) return;
 		if (collision.GetComponent<PlayerController>() != null) collision.GetComponent<PlayerController>().Health -= damage;
-	}
+        GameManager.instance.UiManager.UpdateHealthBars();
+    }
 }
