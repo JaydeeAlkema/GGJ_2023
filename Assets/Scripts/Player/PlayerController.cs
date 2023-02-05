@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("References")] private SpriteRenderer spriteRenderer = default;
 	[SerializeField, Foldout("References")] private Transform groundedCheckTransform = default;
 	[SerializeField, Foldout("References")] private Transform directionIndicator = default;
+	[SerializeField, Foldout("References")] private GameObject dustCloudParticleSystem = default;
 
 	[SerializeField, Foldout("Buffs")] private List<Buff> currentBuffs = new List<Buff>();
 	[SerializeField, Foldout("Buffs")] private BuffsScriptableObject buffScriptableObject;
