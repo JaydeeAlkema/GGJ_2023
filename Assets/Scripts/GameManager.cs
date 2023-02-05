@@ -66,10 +66,6 @@ public class GameManager : MonoBehaviour
 		PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
     }
 
-    void OnJoinAction(InputAction.CallbackContext context)
-    {
-        PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
-    }
     void OnLeaveAction(InputAction.CallbackContext context)
     {
 
