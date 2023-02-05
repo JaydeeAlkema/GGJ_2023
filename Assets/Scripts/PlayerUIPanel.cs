@@ -16,6 +16,6 @@ public class PlayerUIPanel : MonoBehaviour
     private int lives = 3;
 
     public TextMeshProUGUI PlayerText { get => playerText; set => playerText = value; }
-    public int Health { get => health; set => health = value; }
+    public Image HealthbarFillImage { get => healthbarFillImage; set => healthbarFillImage = value; }   
     public int Lives { get => lives; set => lives = value; }
 }
