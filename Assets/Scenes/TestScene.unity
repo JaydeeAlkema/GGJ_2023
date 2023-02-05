@@ -4393,7 +4393,8 @@ MonoBehaviour:
   timeToCompletion: 20
   completedScale: 2
   timeToCooldown: {x: 15, y: 30}
-  buffPrefab: {fileID: 0}
+  buffPrefab: {fileID: 4912813512080388123, guid: 78e4dde80be379b46bd3623aa933cd2d,
+    type: 3}
   completed: 0
   collider2D: {fileID: 785159366}
 --- !u!1001 &802757314

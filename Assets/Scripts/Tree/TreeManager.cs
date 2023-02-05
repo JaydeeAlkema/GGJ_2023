@@ -7,7 +7,7 @@ public class TreeManager : MonoBehaviour
 {
     [SerializeField] private List<Transform> projectileSpawnPoints = new List<Transform>();
     [SerializeField] private List<PlayerController> players = new List<PlayerController>();
-    [SerializeField] private PlayerController currentSidePlayer = null;
+    [SerializeField] private PlayerController targetingPlayer = null;
 
     [SerializeField] private BuffIconsScriptableObject icons;
 
@@ -18,9 +18,10 @@ public class TreeManager : MonoBehaviour
     [SerializeField] private GameObject buffPrefab;
     private List<GameObject> projectiles;
 
-    private float timeBetweenBuffEvents = 5;
-    private float timeBetweenTreeEvents = 1f;
+    private float timeBetweenBuffEvents = 10;
+    private float timeBetweenTreeEvents = 3f;
 
+    public PlayerController TargetingPlayer { get => targetingPlayer; set => targetingPlayer = value; }
 
     public void Awake()
     {
@@ -34,17 +35,17 @@ public class TreeManager : MonoBehaviour
 
     public void ChangeSide(PlayerController player)
     {
-        currentSidePlayer = player;
+        targetingPlayer = player;
     }
 
     public void ShootProjectileAtPlayer()
     {
-        if (currentSidePlayer == null) return;
+        if (targetingPlayer == null) return;
         Vector3 spawnpos = GetRandomProjectileSpawnPoint();
         GameObject projectile = Instantiate(projectilePrefab, spawnpos, Quaternion.identity);
         projectile.GetComponent<Projectile>().Speed = currentLevel * 10;
 
-        Vector2 direction = (currentSidePlayer.transform.position - spawnpos).normalized;
+        Vector2 direction = (targetingPlayer.transform.position - spawnpos).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
