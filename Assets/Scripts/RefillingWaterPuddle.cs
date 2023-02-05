@@ -16,6 +16,7 @@ public class RefillingWaterPuddle : MonoBehaviour
 
 	private void Start()
 	{
+		waterDropsParticleSystem.Stop();
 		StartCoroutine(SpawnBuffInSeconds());
 	}
 
