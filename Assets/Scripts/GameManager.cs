@@ -61,10 +61,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-    void OnPlayerLeft(PlayerInput playerInput)
-    {
-        players.Remove(playerInput);
+	void OnJoinAction(InputAction.CallbackContext context)
+	{
+		PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
     }
 
     void OnJoinAction(InputAction.CallbackContext context)
