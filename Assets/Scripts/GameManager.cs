@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private TreeManager treeManager;
 	[SerializeField] private UIManager uiManager;
 
-	[SerializeField] private Transform player1SpawnPoint = default;
-	[SerializeField] private Transform player2SpawnPoint = default;
+    [SerializeField] private List<Transform> spawnPoints = default;
 
 	[SerializeField] private InputAction joinAction;
 	[SerializeField] private InputAction leaveAction;
@@ -69,5 +68,17 @@ public class GameManager : MonoBehaviour
 	void OnLeaveAction(InputAction.CallbackContext context)
 	{
 
-	}
+    }
+
+    public void RespawnPlayers(GameObject playerObject)
+    {
+        for (int i = 0; i < controllers.Count; i++)
+        {
+            if (playerObject == controllers[i].gameObject)
+            {
+                Debug.Log("tteeee");
+                playerObject.transform.position = spawnPoints[i].position;
+            }
+        }
+    }
 }
