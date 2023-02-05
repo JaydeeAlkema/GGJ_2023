@@ -53,7 +53,12 @@ public class GameManager : MonoBehaviour
 			playerJoinedGame(playerInput);
 		}
 
-        uiManager.UpdateUI(players.Count);
+        List<PlayerController> playerControllers = new List<PlayerController>();
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerControllers.Add(players[i].GetComponent<PlayerController>());
+        }
+        uiManager.UpdateUI(playerControllers);
     }
 
 	void OnPlayerLeft(PlayerInput playerInput)

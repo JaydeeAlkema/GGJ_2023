@@ -440,7 +440,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -1.2959976, y: -1.4}
-  m_SizeDelta: {x: 74.988, y: 26.782}
+  m_SizeDelta: {x: 63.663, y: 26.782}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &3095817440964443871
 MonoBehaviour:
@@ -503,8 +503,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -37.123, y: -2.151989}
-  m_SizeDelta: {x: 74.246, y: 20.976}
+  m_AnchoredPosition: {x: -31.5607, y: -2.151989}
+  m_SizeDelta: {x: 85.3705, y: 20.976}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3095817441036079367
 CanvasRenderer:
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Player: 1'
+  m_text: 'Player: 01'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
