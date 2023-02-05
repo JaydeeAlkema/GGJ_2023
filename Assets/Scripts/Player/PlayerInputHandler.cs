@@ -8,7 +8,9 @@ public class PlayerInputHandler : MonoBehaviour
 	[Space]
 	[SerializeField] private Vector3 spawnPos = new Vector3(0, 0, 0);
 
-	private void Awake()
+    public PlayerController PlayerController { get => playerController; set => playerController = value; }
+
+    private void Awake()
 	{
 		if (playerPrefab != null)
 		{

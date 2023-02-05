@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private int health = 100;
-	[SerializeField, Foldout("Movement Variables")] private ScriptableFloat moveSpeed;
+    [SerializeField] private ScriptableInt damage;
+    [SerializeField] private ScriptableFloat knockback;
+    [SerializeField, Foldout("Movement Variables")] private ScriptableFloat moveSpeed;
 	[SerializeField, Foldout("Movement Variables")] private float jumpForce = 8f;
 	[SerializeField, Foldout("Movement Variables")] private float jumpCooldown = 0.5f;
 	[SerializeField, Foldout("Movement Variables")] private float defaultGravityScale = 5f;
@@ -30,7 +33,8 @@ public class PlayerController : MonoBehaviour
 
 	[SerializeField, Foldout("Debug")] private Rigidbody2D rb2d = default;
 	[SerializeField, Foldout("Debug")] private Animator animator;
-	[SerializeField, Foldout("Debug")] private int currentAttackIndex = 0;
+
+    [SerializeField, Foldout("Debug")] private int currentAttackIndex = 0;
 	[SerializeField, Foldout("Debug")] private float comboAttackTime = 0.75f;
 	[SerializeField, Foldout("Debug")] private float comboAttackTimer = 0f;
 
@@ -44,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
 		rb2d.gravityScale = defaultGravityScale;
 		StartCoroutine(UpdateBuffs());
+        AddPlayerToLists();
 	}
 	private void Update()
 	{
@@ -84,7 +89,9 @@ public class PlayerController : MonoBehaviour
 
 			GameObject newAttackGO = Instantiate(attacks[currentAttackIndex], attackSpawnPoint.position, directionIndicator.transform.rotation);
 			newAttackGO.GetComponent<Attack>().sender = gameObject;
-			currentAttackIndex++;
+            newAttackGO.GetComponent<Attack>().Damage = damage.currentValue;
+            newAttackGO.GetComponent<Attack>().PushForce = knockback.currentValue;
+            currentAttackIndex++;
 			if (currentAttackIndex >= attacks.Count) currentAttackIndex = 0;
 		}
 	}
@@ -227,10 +234,10 @@ public class PlayerController : MonoBehaviour
 				moveSpeed.currentValue = buffScriptableObject.boostedMovementSpeed;
 				break;
 			case BuffTypes.Knockback:
-				//knockback.currentValue = buffScriptableObject.boostedKnockback;
+				knockback.currentValue = buffScriptableObject.boostedKnockback;
 				break;
 			case BuffTypes.Damage:
-				//damage.currentValue = buffScriptableObject.boostedDamage
+                damage.currentValue = buffScriptableObject.boostedDamage;
 				break;
 			default:
 				break;
@@ -253,10 +260,10 @@ public class PlayerController : MonoBehaviour
 						moveSpeed.currentValue = buffScriptableObject.boostedMovementSpeed;
 						break;
 					case BuffTypes.Knockback:
-						//knockback.currentValue = buffScriptableObject.boostedKnockback;
+						knockback.currentValue = buffScriptableObject.boostedKnockback;
 						break;
 					case BuffTypes.Damage:
-						//damage.currentValue = buffScriptableObject.boostedDamage
+                        damage.currentValue = buffScriptableObject.boostedDamage;
 						break;
 					default:
 						break;
@@ -272,10 +279,10 @@ public class PlayerController : MonoBehaviour
 							moveSpeed.currentValue = moveSpeed.startValue;
 							break;
 						case BuffTypes.Knockback:
-							//knockBack.currentValue = knockBack.startvalue;
+							knockback.currentValue = knockback.startValue;
 							break;
 						case BuffTypes.Damage:
-							//damage.currentValue = damage.startValue;
+							damage.currentValue = damage.startValue;
 							break;
 						default:
 							break;
@@ -286,6 +293,11 @@ public class PlayerController : MonoBehaviour
 			yield return new WaitForSeconds(1f);
 		}
 	}
-	#endregion
+    #endregion
 
+    public void AddPlayerToLists()
+    {
+        GameManager.instance.UiManager.PlayerControllers.Add(this);
+        GameManager.instance.UiManager.UpdateUI(GameManager.instance.UiManager.PlayerControllers);
+    }
 }
