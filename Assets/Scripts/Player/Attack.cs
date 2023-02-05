@@ -35,7 +35,8 @@ public class Attack : MonoBehaviour/*, IDamageable*/
 			collision.GetComponent<PlayerController>().Health -= damage;
 			GameManager.instance.UiManager.UpdateHealthBars();
 			PushAway(collision.GetComponent<Rigidbody2D>(), sender.transform.position, pushForce);
-		}
+            sender.GetComponent<PlayerController>().OtherPlayer = collision.GetComponent<PlayerController>();
+        }
 	}
 
 	public void PushAway(Rigidbody2D rigidbody2D, Vector2 origin, float force)

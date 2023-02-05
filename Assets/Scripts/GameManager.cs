@@ -23,8 +23,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private List<PlayerController> controllers = new List<PlayerController>();
 
 	public UIManager UiManager { get => uiManager; set => uiManager = value; }
+    public TreeManager TreeManager { get => treeManager; set => treeManager = value; }
 
-	private void Awake()
+    private void Awake()
 	{
 		if (!instance || instance != this)
 		{
