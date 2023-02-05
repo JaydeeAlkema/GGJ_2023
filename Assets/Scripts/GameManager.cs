@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
@@ -56,7 +57,6 @@ public class GameManager : MonoBehaviour
 		}
 
 		controllers = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).ToList();
-
 	}
 
 
@@ -76,9 +76,14 @@ public class GameManager : MonoBehaviour
         {
             if (playerObject == controllers[i].gameObject)
             {
-                Debug.Log("tteeee");
                 playerObject.transform.position = spawnPoints[i].position;
             }
         }
+    }
+
+    [ContextMenu("Reset the game")]
+    public void ResetGame()
+    {
+        SceneManager.LoadScene("TestScene");
     }
 }

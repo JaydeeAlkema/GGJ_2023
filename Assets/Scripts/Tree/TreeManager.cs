@@ -9,6 +9,8 @@ public class TreeManager : MonoBehaviour
     [SerializeField] private List<PlayerController> players = new List<PlayerController>();
     [SerializeField] private PlayerController currentSidePlayer = null;
 
+    [SerializeField] private BuffIconsScriptableObject icons;
+
     [SerializeField] private int currentLevel;
 
 
@@ -71,7 +73,27 @@ public class TreeManager : MonoBehaviour
             Vector3 spawnPos = GetRandomProjectileSpawnPoint();
             GameObject buffObject = Instantiate(buffPrefab, spawnPos, Quaternion.identity);
             BuffCollectable buff = buffObject.GetComponent<BuffCollectable>();
-            buff.buffType = (BuffTypes)UnityEngine.Random.Range(0, Enum.GetNames(typeof(BuffTypes)).Length);
+            BuffTypes buffType = (BuffTypes)UnityEngine.Random.Range(0, Enum.GetNames(typeof(BuffTypes)).Length);
+
+            switch (buffType)
+            {
+                case BuffTypes.Water:
+                    buffObject.GetComponent<SpriteRenderer>().sprite = icons.speedSprite;
+                    break;
+                case BuffTypes.Speed:
+                    buffObject.GetComponent<SpriteRenderer>().sprite = icons.speedSprite;
+                    break;
+                case BuffTypes.Knockback:
+                    buffObject.GetComponent<SpriteRenderer>().sprite = icons.knockbackSprite;
+                    break;
+                case BuffTypes.Damage:
+                    buffObject.GetComponent<SpriteRenderer>().sprite = icons.damageSprite;
+                    break;
+                default:
+                    break;
+            }
+
+            buff.buffType = buffType;
             yield return new WaitForSeconds(timeBetweenBuffEvents);
         }
     }

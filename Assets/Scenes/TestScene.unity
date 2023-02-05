@@ -4926,6 +4926,7 @@ MonoBehaviour:
   - {fileID: 717309061}
   players: []
   currentSidePlayer: {fileID: 0}
+  icons: {fileID: 11400000, guid: c0dd7ef1bf4daff40a22b4208e24c128, type: 2}
   currentLevel: 1
   projectilePrefab: {fileID: 124434889490120683, guid: 6d2f34a5c4b407048bb81a5ff4cd9442,
     type: 3}
