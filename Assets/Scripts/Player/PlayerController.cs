@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,8 @@ public class PlayerController : MonoBehaviour
 
 	[SerializeField, Foldout("Debug")] private Rigidbody2D rb2d = default;
 	[SerializeField, Foldout("Debug")] private Animator animator;
-	[SerializeField, Foldout("Debug")] private int currentAttackIndex = 0;
+
+    [SerializeField, Foldout("Debug")] private int currentAttackIndex = 0;
 	[SerializeField, Foldout("Debug")] private float comboAttackTime = 0.75f;
 	[SerializeField, Foldout("Debug")] private float comboAttackTimer = 0f;
 
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
 		rb2d.gravityScale = defaultGravityScale;
 		StartCoroutine(UpdateBuffs());
+        AddPlayerToLists();
 	}
 	private void Update()
 	{
@@ -285,6 +288,11 @@ public class PlayerController : MonoBehaviour
 			yield return new WaitForSeconds(1f);
 		}
 	}
-	#endregion
+    #endregion
 
+    public void AddPlayerToLists()
+    {
+        GameManager.instance.UiManager.PlayerControllers.Add(this);
+        GameManager.instance.UiManager.UpdateUI(GameManager.instance.UiManager.PlayerControllers);
+    }
 }
