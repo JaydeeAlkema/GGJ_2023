@@ -31,4 +31,8 @@ public class PlayerInputHandler : MonoBehaviour
 	{
 		playerController.OnAttack(context);
 	}
+	public void OnReset(InputAction.CallbackContext context)
+	{
+		GameManager.instance.ResetGame();
+	}
 }
