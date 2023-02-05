@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private int lives = 3;
 	[SerializeField] private int health = 100;
     [SerializeField] private ScriptableInt damage;
     [SerializeField] private ScriptableFloat knockback;
@@ -39,22 +40,24 @@ public class PlayerController : MonoBehaviour
 	[SerializeField, Foldout("Debug")] private float comboAttackTimer = 0f;
 
 	public int Health { get => health; set => health = value; }
+    public int Lives { get => lives; set => lives = value; }
 
-	#region Unity Callbacks
-	private void Awake()
+    #region Unity Callbacks
+    private void Awake()
 	{
 		rb2d = GetComponent<Rigidbody2D>();
 		animator = GetComponentInChildren<Animator>();
 
 		rb2d.gravityScale = defaultGravityScale;
 		StartCoroutine(UpdateBuffs());
-        AddPlayerToLists();
+        AddPlayerToListsAndSetPositions();
 	}
 	private void Update()
 	{
 		SetAnimatorStates();
 		EvaluateJump();
 		ComboAttackTimerCountdown();
+        CheckIfDead();
 	}
 	#endregion
 
@@ -295,9 +298,19 @@ public class PlayerController : MonoBehaviour
 	}
     #endregion
 
-    public void AddPlayerToLists()
+    public void AddPlayerToListsAndSetPositions()
     {
         GameManager.instance.UiManager.PlayerControllers.Add(this);
         GameManager.instance.UiManager.UpdateUI(GameManager.instance.UiManager.PlayerControllers);
+        GameManager.instance.RespawnPlayers(gameObject);
+    }
+
+    public void CheckIfDead()
+    {
+        if (health < 0)
+        {
+            GameManager.instance.RespawnPlayers(gameObject);
+            health = 100;
+        }
     }
 }

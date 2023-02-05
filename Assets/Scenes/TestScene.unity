@@ -7398,8 +7398,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeManager: {fileID: 868629083}
   uiManager: {fileID: 512201691}
-  player1SpawnPoint: {fileID: 1865716112}
-  player2SpawnPoint: {fileID: 895774495}
+  spawnPoints:
+  - {fileID: 1865716112}
+  - {fileID: 895774495}
   joinAction:
     m_Name: Join
     m_Type: 0
@@ -7419,6 +7420,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   players: []
+  controllers: []
 --- !u!114 &1429488470
 MonoBehaviour:
   m_ObjectHideFlags: 0
